@@ -6,10 +6,11 @@ import "C"
 
 import (
 	"errors"
-	. "github.com/moovweb/gokogiri/util"
-	"github.com/moovweb/gokogiri/xpath"
 	"strconv"
 	"unsafe"
+
+	. "github.com/moovweb/gokogiri/util"
+	"github.com/moovweb/gokogiri/xpath"
 )
 
 var (
@@ -648,7 +649,9 @@ func (xmlNode *XmlNode) EvalXPath(data interface{}, v xpath.VariableScope) (resu
 		result, err = xmlNode.EvalXPath(string(data), v)
 	case *xpath.Expression:
 		xpathCtx := xmlNode.Document.DocXPathCtx()
-		xpathCtx.SetResolver(v)
+		if v != nil {
+			xpathCtx.SetResolver(v)
+		}
 		err := xpathCtx.Evaluate(unsafe.Pointer(xmlNode.Ptr), data)
 		if err != nil {
 			return nil, err
@@ -701,7 +704,9 @@ func (xmlNode *XmlNode) EvalXPathAsBoolean(data interface{}, v xpath.VariableSco
 		result = xmlNode.EvalXPathAsBoolean(string(data), v)
 	case *xpath.Expression:
 		xpathCtx := xmlNode.Document.DocXPathCtx()
-		xpathCtx.SetResolver(v)
+		if v != nil {
+			xpathCtx.SetResolver(v)
+		}
 		err := xpathCtx.Evaluate(unsafe.Pointer(xmlNode.Ptr), data)
 		if err != nil {
 			return false
