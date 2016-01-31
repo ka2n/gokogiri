@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"unsafe"
 
-	. "github.com/moovweb/gokogiri/util"
-	"github.com/moovweb/gokogiri/xpath"
+	. "github.com/ka2n/gokogiri/util"
+	"github.com/ka2n/gokogiri/xpath"
 )
 
 var (
